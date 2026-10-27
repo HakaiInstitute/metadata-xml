@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
 
 Defines custom functions used by the Jinja template
@@ -7,17 +5,21 @@ Defines custom functions used by the Jinja template
 Also defines metadata_to_xml()
 
 """
+
 import os
 import pathlib
 from datetime import date
+
+import validators
 from jinja2 import Environment, FileSystemLoader
 from yattag import indent
-import validators
 
 SCHEMA_FOLDER_NAME = "iso19115-cioos-template"
 
+
 def is_url(val):
     return val and validators.url(val)
+
 
 def list_or_value_to_list(val):
     """turns a list or a single value into a list"""
@@ -37,7 +39,9 @@ def normalize_datestring(datestring):
     try:
         if isinstance(datestring, date):
             if datestring.year < 1900:
-                datestring2 = "{0.day:02d}.{0.month:02d}.{0.year:4d}".format(datestring)
+                datestring2 = (
+                    f"{datestring.day:02d}.{datestring.month:02d}.{datestring.year:4d}"
+                )
             else:
                 datestring2 = datestring.strftime("%Y-%m-%dT%H:%M:%SZ")
             if datestring2.endswith("T00:00:00Z"):
@@ -46,7 +50,7 @@ def normalize_datestring(datestring):
         elif isinstance(datestring, int) and len(str(datestring)) == 4:  # year
             return str(datestring)
     except AttributeError:
-        raise RuntimeError("Invalid datestring: {}".format(datestring))
+        raise RuntimeError(f"Invalid datestring: {datestring}")
     return datestring
 
 
@@ -69,7 +73,7 @@ def list_all_languages_in_record(record):
     two_character_keys = list(
         filter(lambda x: (len(x) == 2) and (x != "id"), keys_in_record)
     )
-    return two_character_keys
+    return sorted(two_character_keys)
 
 
 def metadata_to_xml(record):
