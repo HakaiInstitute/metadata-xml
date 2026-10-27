@@ -14,7 +14,7 @@ It can be used as a command line tool, or imported into other Python code.
 Install via pip with:
 
 ```
-pip install https://github.com/cioos-siooc/metadata-xml.git
+pip install git+https://github.com/cioos-siooc/metadata-xml.git
 ```
 
 ## Development Installation
