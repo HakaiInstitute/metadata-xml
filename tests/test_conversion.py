@@ -44,7 +44,10 @@ def test_sample_records(record_file):
     schema.assertValid(xml_doc)
 
 
-external_sample_files = list(Path("metadata").glob("**/*.yaml"))
+external_sample_files = [
+    *Path("metadata").glob("**/*.yaml"),
+    *Path("metadata").glob("**/*.yml"),
+]
 
 
 @pytest.mark.skipif(not external_sample_files, reason="No external sample files found")
