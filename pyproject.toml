@@ -3,24 +3,24 @@ name = "metadata-xml"
 version = "0.2.0"
 description = "Python module for converting ACDD style metadata into the CIOOS ISO profile"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 dependencies = [
     "jinja2>=3.1.2",
     "markupsafe>=2.1.1",
     "pyyaml>=6.0.1",
-    "validators==0.20.0",
-    "yattag==1.14.0",
+    "validators>=0.35",
+    "yattag>=1.16",
 ]
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
     "lxml>=5.3.1",
     "pytest>=8.3.5",
     "ruff>=0.11.3",
 ]
 
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=78.1.1"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]

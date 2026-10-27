@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
 
 Code to handle command line usage of this module
@@ -57,13 +55,14 @@ def main():
     path_with_file = os.path.splitext(filename)[0]
 
     if output_folder:
-        yaml_filename = f"{output_folder}/{pre}.xml"
+        os.makedirs(output_folder, exist_ok=True)
+        yaml_filename = os.path.join(output_folder, f"{pre}.xml")
     else:
         yaml_filename = f"{path_with_file}.xml"
 
-    file = open(yaml_filename, "w")
-    file.write(xml_string)
-    print("Wrote " + file.name)
+    with open(yaml_filename, "w") as file:
+        file.write(xml_string)
+    print("Wrote " + yaml_filename)
 
 
 if __name__ == "__main__":

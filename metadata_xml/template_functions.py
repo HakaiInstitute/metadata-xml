@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
 
 Defines custom functions used by the Jinja template
@@ -41,7 +39,9 @@ def normalize_datestring(datestring):
     try:
         if isinstance(datestring, date):
             if datestring.year < 1900:
-                datestring2 = "{0.day:02d}.{0.month:02d}.{0.year:4d}".format(datestring)
+                datestring2 = (
+                    f"{datestring.day:02d}.{datestring.month:02d}.{datestring.year:4d}"
+                )
             else:
                 datestring2 = datestring.strftime("%Y-%m-%dT%H:%M:%SZ")
             if datestring2.endswith("T00:00:00Z"):
@@ -50,7 +50,7 @@ def normalize_datestring(datestring):
         elif isinstance(datestring, int) and len(str(datestring)) == 4:  # year
             return str(datestring)
     except AttributeError:
-        raise RuntimeError("Invalid datestring: {}".format(datestring))
+        raise RuntimeError(f"Invalid datestring: {datestring}")
     return datestring
 
 
